@@ -1,0 +1,10 @@
+.idea/*
+*/.idea/*
+
+build/*
+*/build/*
+
+__pycache__/*
+vg.egg-info/*
+
+ops_cuda.egg-info/*
