@@ -3,15 +3,15 @@ from torch import nn
 import torch
 import warnings
 
-from src.dlow.perception import Perception
+from src.model.perception import Perception
 from src.backbones.vae import CVAE
-from src.dlow.diversity import DiversityDiagAE#, DiversityFull, DiversityDiag,
+from src.model.diversity import DiversityDiagAE
 from src.configs import DataName, ModelType
 
 
-class DLOW(nn.Module):
+class MTG(nn.Module):
     def __init__(self, cfgs):
-        super(DLOW, self).__init__()
+        super(MTG, self).__init__()
         self.cfg = cfgs
 
         self.perception = Perception(self.cfg.perception)

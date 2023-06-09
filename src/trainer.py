@@ -13,7 +13,7 @@ from src.configs import cfg, LossDictKeys, DataName
 from src.utils.functions import get_device, to_device, release_cuda
 from src.utils.logger import SummaryBoard, configure_logger
 from src.data_loader import train_eval_data_loader
-from src.dlow.model import DLOW
+from src.model.model import MTG
 from src.loss import LossEvaluation
 
 
@@ -25,7 +25,7 @@ class Trainer:
         self.name = cfgs.name
 
         self.data_loader, self.val_loader = train_eval_data_loader(cfg=cfgs.data)
-        self.model = DLOW(cfgs=cfgs.model).to(self.device)
+        self.model = MTG(cfgs=cfgs.model).to(self.device)
 
         self.cfgs = cfgs.training
         self.w_eval = self.cfgs.w_eval
