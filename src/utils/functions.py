@@ -332,7 +332,7 @@ def get_transform_from_rotation_translation(rotation: np.ndarray, translation: n
 
 
 def write_png(local_map=None, rgb_local_map=None, center=None, targets=None, paths=None, path=None,
-              others=None, file="/home/jing/Documents/gn/global_nav/test/test_local_map.png"):
+              others=None, file="/test_local_map.png"):
     dis = 2
     if rgb_local_map is not None:
         local_map_fig = rgb_local_map

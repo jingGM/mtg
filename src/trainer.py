@@ -148,31 +148,12 @@ class Trainer:
             if iteration % self.max_iteration_per_epoch == 0 and iteration != 0:
                 break
             self.iteration += 1
-
-            # data_time = time.time()
-            # print("dt: {:.4f}".format(data_time - last_time), end=", ")
-
-            # step_time_start = time.time()
             output_dict, result_dict = self.step(data_dict=data_dict)
-            # step_time = time.time()
-            # print("st: {:.4f}".format(step_time - step_time_start), end=", ")
             th.cuda.empty_cache()
-            # self._display_output(output_dict=output_dict, data_dict=data_dict, iteration=iteration,
-            #                      root_path="/home/jing/Documents/gn/global_nav/test/evaluation/training")
             result_dict[LossDictKeys.loss].backward()
-            # for name, param in self.model.named_parameters():
-            #     print(name, param.grad)
-
-            # optimize_time_start = time.time()
             self.optimizer_step(iteration + 1)
-            # optimize_time = time.time()
-            # print("ot: {:.4f}".format(optimize_time - optimize_time_start))
-
             result_dict = release_cuda(result_dict)
             self.log_summary.update_from_result_dict(result_dict)
-            # self.log_summary.update("step_time", step_time - start_time)
-            # self.log_summary.update("opt_time", optimize_time - step_time)
-            # self.log_summary.update("total_time", optimize_time - start_time)
             if iteration % self.log_steps == 0:
                 summary_dict = self.log_summary.summary()
                 self.logger.record_dict(summary_dict, prefix="train/")
@@ -190,7 +171,7 @@ class Trainer:
         self.save_snapshot(f'models/{self.name}/last.pth.tar')
 
     def _write_png(self, local_map=None, center=None, targets=None, paths=None, path=None,
-                   others=None, file="/home/jing/Documents/gn/global_nav/test/test_local_map.png"):
+                   others=None, file="test_local_map.png"):
         dis = 2
         if len(local_map.shape) == 2:
             local_map_fig = np.repeat(local_map[:, :, np.newaxis], 3, axis=2) * 255
@@ -256,7 +237,7 @@ class Trainer:
         return local_map_fig
 
     def _display_output(self, output_dict, data_dict, iteration, local_map_resolution=0.1, local_map_threshold=300,
-                        root_path="/home/jing/Documents/gn/global_nav/test/evaluation/training"):
+                        root_path="training"):
         if not os.path.exists(root_path):
             os.makedirs(root_path)
         y_hat = output_dict[DataName.y_hat]  # BxNx2
@@ -293,7 +274,7 @@ class Trainer:
             output_dict, result_dict = self.step(data_dict)
             if iteration % 20 == 0:
                 self._display_output(output_dict=output_dict, data_dict=data_dict, iteration=iteration,
-                                     root_path="/home/jing/Documents/gn/global_nav/test/evaluation/training/"+self.name)
+                                     root_path="training/"+self.name)
             th.cuda.synchronize()
             step_time = time.time()
             result_dict = release_cuda(result_dict)
