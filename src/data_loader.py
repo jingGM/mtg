@@ -134,11 +134,6 @@ class GNDataset(Dataset):
                        DataName.path: metadata[DataName.path]}
         if DataName.all_paths in metadata.keys():
             output_dict.update({DataName.all_paths: metadata[DataName.all_paths]})
-        # local_map = cv2.imread(os.path.join(self.figures, self.data_indices[index][1]))
-        # imu = metadata["imu"]
-        # time = metadata["time"]
-        # pose = metadata["pose"]
-        # target = metadata["path"][-1]
         if self.lidar_mode == LidarMode.ptcnn:
             lidar_data = self._process_lidar(metadata[DataName.lidar])
         elif self.lidar_mode == LidarMode.image:

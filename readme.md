@@ -1,3 +1,5 @@
+#### [Video](https://youtu.be/3eJ2soAzXnU?si=PFYqICdi3hfB72Ky)
+
 ### install
 #### python
 ```
@@ -6,11 +8,10 @@ pip install torch_geometric pyg_lib torch_scatter torch_sparse torch_cluster tor
 pip install -r requirements.txt
 ```
 
-#### prepare ground truth data
-```
-python data.data_preparation
-```
+Download the data folder in the root:
+https://drive.google.com/drive/folders/1qEn5OcDVy2jbySMp207AtSzMQcuBv3nP?usp=sharing
 
 #### train
-python main.py --batch_size=16 --lidar_mode=0 --device=0 --name="mtg" --data_root="./local_map_files" --snap_shot="" --data_name="data.pkl" --no_eval --lr_decay_steps=10 --grad_step=5 --collision_type=1 --dlow_type=0 --last_ratio=1000 --collision_ratio=1000
+```
+python main.py --batch_size=16 --lidar_mode=0 --device=0 --name="mtg" --w_others
 ```

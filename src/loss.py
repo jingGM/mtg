@@ -325,12 +325,7 @@ class LossEvaluation(nn.Module):
         y_hat = output_dict[DataName.y_hat]  # B x N x 2
         assert len(y_hat.shape) == 3 or len(y_hat.shape) == 4, "y_hat shape is not correct"
         local_map = output_dict[DataName.png]  # B x W x W
-        if self.model_type == ModelType.dlow:
-            y_hat_poses = torch.cumsum(y_hat, dim=2) * self.scale_waypoints
-            A = output_dict[DataName.A]  # B x 512 x 512
-            b = output_dict[DataName.b]  # B x 512
-            loss_dict = self._dlow_loss(A=A, b=b, yhat=y_hat_poses, ygt=y_gt, y_last=y_last, local_map=local_map)
-        elif self.model_type == ModelType.cvae:
+        if self.model_type == ModelType.cvae:
             y_hat_poses = torch.cumsum(y_hat, dim=1) * self.scale_waypoints
             logvar = output_dict[DataName.logvar]  # B x 512
             mu = output_dict[DataName.mu]  # B x 512

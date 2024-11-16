@@ -56,6 +56,7 @@ RNNType.lstm = 1
 
 ModelType = edict()
 ModelType.cvae = 0
+ModelType.dlow = 1
 ModelType.dlowae = 2
 ModelType.terrapn = 3
 
@@ -273,7 +274,7 @@ def get_args():
     parser.add_argument('--name', type=str, default="new")
 
     # Data settings
-    parser.add_argument('--data_root', type=str, default="datasets/local_map_files_90")
+    parser.add_argument('--data_root', type=str, default="data/local_map_files_120")
     parser.add_argument('--data_name', type=str, default="data.pkl")
     parser.add_argument('--workers', type=int, default=8)
     parser.add_argument('--batch_size', type=int, default=1, help="batch size")
@@ -306,17 +307,17 @@ def get_args():
     parser.add_argument('--distance_type', type=int, default=LossDisType.hausdorff, help="0: dtw;  1: hausdorff")
     parser.add_argument('--collision_type', type=int, default=CollisionLossType.local_dis, help="number of waypoints")
     # parser.add_argument('--gt_type', type=int, default=GTType.generated, help="0: generated, 1: demonstration")
-    parser.add_argument('--vae_kld_ratio', type=float, default=0, help="number of waypoints")
-    parser.add_argument('--dlow_kld_ratio', type=float, default=0, help="number of waypoints")
+    parser.add_argument('--vae_kld_ratio', type=float, default=100, help="number of waypoints")
+    parser.add_argument('--dlow_kld_ratio', type=float, default=0.01, help="number of waypoints")
     parser.add_argument('--last_ratio', type=float, default=0, help="number of waypoints")
     parser.add_argument('--distance_ratio', type=float, default=0, help="number of waypoints")
     parser.add_argument('--diversity_ratio', type=float, default=0, help="number of waypoints")
-    parser.add_argument('--collision_mean_ratio', type=float, default=0, help="number of waypoints")
-    parser.add_argument('--collision_max_ratio', type=float, default=0, help="number of waypoints")
-    parser.add_argument('--coverage_distance_ratio', type=float, default=0, help="number of waypoints")
-    parser.add_argument('--coverage_last_ratio', type=float, default=0, help="number of waypoints")
+    parser.add_argument('--collision_mean_ratio', type=float, default=100000, help="number of waypoints")
+    parser.add_argument('--collision_max_ratio', type=float, default=100, help="number of waypoints")
+    parser.add_argument('--coverage_distance_ratio', type=float, default=100, help="number of waypoints")
+    parser.add_argument('--coverage_last_ratio', type=float, default=10, help="number of waypoints")
     parser.add_argument('--asymmetric_ratio', type=float, default=0, help="number of waypoints")
-    parser.add_argument('--coverage_diverse_ratio', type=float, default=0, help="number of waypoints")
+    parser.add_argument('--coverage_diverse_ratio', type=float, default=10, help="number of waypoints")
 
     return parser.parse_args()
 

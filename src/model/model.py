@@ -44,9 +44,6 @@ class MTG(nn.Module):
         if self.model_type == ModelType.cvae:
             waypoints, mu, logvar = self.generator(observation)
             output.update({DataName.mu: mu, DataName.logvar: logvar})
-        elif self.model_type == ModelType.dlow:
-            waypoints, A, b = self.generator(observation)
-            output.update({DataName.A: A, DataName.b: b})
         elif self.model_type == ModelType.dlowae:
             waypoints, A, b, mu, logvar, scores = self.generator(observation)
             output.update({DataName.A: A,
@@ -66,9 +63,6 @@ class MTG(nn.Module):
         if self.model_type == ModelType.cvae:
             waypoints, mu, logvar = self.generator.sample_forward(observation, N)
             output.update({DataName.mu: mu, DataName.logvar: logvar})
-        elif self.model_type == ModelType.dlow:
-            waypoints, A, b = self.generator(observation)
-            output.update({DataName.A: A, DataName.b: b})
         elif self.model_type == ModelType.dlowae:
             waypoints, A, b, mu, logvar = self.generator(observation)
             output.update({DataName.A: A, DataName.b: b, DataName.mu: mu, DataName.logvar: logvar})
